@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing dependencies
+      - pip install --target=./package boto3
+
+  build:
+    commands:
+      - echo Packaging Lambda function
+      - cd package
+      - zip -r ../function.zip .
+      - cd ..
+      - zip -g function.zip lambda_functions/*.py
+
+  post_build:
+    commands:
+      - echo Deploying Lambda function
+      - aws lambda update-function-code --function-name Airbnb-filtering --zip-file fileb://function.zip
+
+artifacts:
+  files:
+    - function.zip
