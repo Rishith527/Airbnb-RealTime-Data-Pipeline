@@ -12,7 +12,7 @@ def lambda_handler(event, context):
         end_date = datetime.strptime(message['endDate'], "%Y-%m-%d")
         duration = (end_date - start_date).days
         
-        # Filter messages where the booking duration is more than 1 day
+        
         if duration > 1:
             print(f"Processing booking ID: {message['bookingId']} with duration: {duration} days")
             # Write the message to S3
